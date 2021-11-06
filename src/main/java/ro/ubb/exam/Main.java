@@ -17,14 +17,17 @@ import java.security.KeyException;
 public class Main {
     public static void main(String[] args) throws KeyException {
         ClientValidator clientValidator = new ClientValidator();
-        InMemoryRepository clientRepository = new InMemoryRepository(clientValidator);
         HolidayValidator holidayValidator = new HolidayValidator();
-        InMemoryRepository holidayRepository = new InMemoryRepository(holidayValidator);
-        ClientService clientService = new ClientService(clientRepository);
+
+        // clasa_parinte variabila = new clasa_copil();
+        Repository<Long, Client> clientRepository = new InMemoryRepository<>(clientValidator);
+        Repository<Long, Holiday> holidayRepository = new InMemoryRepository<>(holidayValidator);
+
+        ClientService clientService = new ClientService(clientRepository);                     //instantiere Repo prin constructorul de la ClientService
         HolidayService holidayService = new HolidayService(holidayRepository);
 
-       Console console = new Console(clientService, holidayService);
-       console.run();
+        Console console = new Console(clientService, holidayService);
+        console.run();
     }
 }
 

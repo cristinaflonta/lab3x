@@ -14,7 +14,6 @@ public class HolidayService {
         this.holidayRepository = repository;
     }
 
-
     public void addHoliday(Holiday holiday) throws ValidatorException {
         holidayRepository.save(holiday);
     }
@@ -24,7 +23,7 @@ public class HolidayService {
     }
 
     public Optional<Holiday> findOne(Long id) {
-        Optional<Holiday> holiday= holidayRepository.findOne(id);
+        Optional<Holiday> holiday = holidayRepository.findOne(id);
         return holiday;
     }
 
@@ -32,19 +31,17 @@ public class HolidayService {
         holidayRepository.delete(holiday.getId());
     }
 
-
-    public Optional<Holiday> updateHoliday(Long id, String name, String destination, float price)  {
+    public Optional<Holiday> updateHoliday(Long id, String name, String destination, float price) {
         Optional<Holiday> existing = holidayRepository.findOne(id);
-        if (existing.isPresent() ) {
+        if (existing.isPresent()) {
             Holiday holiday = existing.get();
             holiday.setName(name);
             holiday.setDestination(destination);
             holiday.setPrice(price);
             holidayRepository.update(holiday);
-        }else {
+        } else {
             System.out.println("this holiday does not exist");
         }
         return existing;
-
     }
 }

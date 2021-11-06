@@ -7,12 +7,11 @@ import ro.ubb.exam.Repository.Repository;
 import java.util.Optional;
 
 public class ClientService {
-
-    private Repository<Long, Client> clientRepository;
+    private Repository<Long, Client> clientRepository;          //definire tip Repo
 
     public ClientService(Repository<Long, Client> repository) {
         this.clientRepository = repository;
-    }
+    } //instantiere in constructor
 
     public void addClient(Client client) throws ValidatorException {
         clientRepository.save(client);
@@ -23,7 +22,7 @@ public class ClientService {
     }
 
     public Optional<Client> findOne(Long id) {
-        Optional<Client> clientOptional= clientRepository.findOne(id);
+        Optional<Client> clientOptional = clientRepository.findOne(id);
         return clientOptional;
     }
 
@@ -40,7 +39,7 @@ public class ClientService {
             client.setName(name);
             client.setEmail(email);
             clientRepository.update(client);
-        }else {
+        } else {
             System.out.println("this client does not exist");
         }
         return existing;

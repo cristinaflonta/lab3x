@@ -1,6 +1,6 @@
 package ro.ubb.exam.Domain;
 
-public class Entity <ID> {
+public class Entity<ID> {              //template
 
     private ID id;
 
@@ -13,7 +13,7 @@ public class Entity <ID> {
     }
 
     @Override
-    public String toString() {
+    public String toString() {             //Clasa Object sageata linia 16 in sus
         return "Entity{" +
                 "id=" + id +
                 '}';

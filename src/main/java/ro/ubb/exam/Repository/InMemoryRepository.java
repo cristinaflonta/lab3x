@@ -15,9 +15,8 @@ import java.util.stream.Collectors;
  * @author.
  */
 public class InMemoryRepository<ID, T extends Entity<ID>> implements Repository<ID, T> {
-
-    private Map<ID, T> entities;
-    private Validator<T> validator;
+    private final Map<ID, T> entities;
+    private final Validator<T> validator;
 
     public InMemoryRepository(Validator<T> validator) {
         this.validator = validator;
