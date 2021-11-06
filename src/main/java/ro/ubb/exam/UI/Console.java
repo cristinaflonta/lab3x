@@ -2,6 +2,7 @@ package ro.ubb.exam.UI;
 
 import ro.ubb.exam.Domain.Client;
 import ro.ubb.exam.Domain.Holiday;
+import ro.ubb.exam.Domain.IdGenerator;
 import ro.ubb.exam.Service.ClientService;
 import ro.ubb.exam.Service.HolidayService;
 
@@ -11,6 +12,9 @@ public class Console {
     private ClientService clientService;
     private HolidayService holidayService;
     private Scanner scanner;
+
+    private IdGenerator idGeneratorClient = new IdGenerator();
+    private IdGenerator idGeneratorHoliday = new IdGenerator();
 
     public Console(ClientService clientService, HolidayService holidayService) {
         this.clientService = clientService;
@@ -73,18 +77,13 @@ public class Console {
 
     private void handleAddClient() {
         try {
-            System.out.print("Enter id: ");
-            Long id = scanner.nextLong();
+            Long id = idGeneratorClient.generate();
             System.out.print("Enter client name: ");
-            scanner.nextLine();
             String clientName = scanner.nextLine();
             System.out.print("Enter client email: ");
             String clientEmail = scanner.nextLine();
-            /*System.out.print("Enter client phone: ");
-            int phoneNumber = Integer.parseInt(scanner.nextLine());*/
 
-            Client client = new Client(clientName, clientEmail);
-            client.setId(id);
+            Client client = new Client(id, clientName, clientEmail);
             clientService.addClient(client);
 
         } catch (Exception ex) {
@@ -96,14 +95,11 @@ public class Console {
         try {
             System.out.print("Enter id: ");
             Long id = scanner.nextLong();
-            scanner.nextLine();
             System.out.print("Enter client name: ");
             scanner.nextLine();
             String clientName = scanner.nextLine();
             System.out.print("Enter client email: ");
             String clientEmail = scanner.nextLine();
-            /*System.out.print("Enter client phone: ");
-            int phoneNumber = Integer.parseInt(scanner.nextLine());*/
 
             clientService.updateClient(id, clientName, clientEmail);
 
@@ -134,8 +130,7 @@ public class Console {
 
     private void handleAddHoliday() {
         try {
-            System.out.print("Enter id: ");
-            Long id = scanner.nextLong();
+            Long id = idGeneratorHoliday.generate(); // static vs non-static
             System.out.print("Enter holiday name: ");
             scanner.nextLine();
             String holidayName = scanner.nextLine();
@@ -157,7 +152,7 @@ public class Console {
 
     private void handleViewClients() {
         for (Client client : clientService.getAll()) {
-            System.out.println("client id: " +client.getId() + " " + client);
+            System.out.println("client id: " + client.getId() + " " + client);
         }
     }
 
@@ -171,7 +166,7 @@ public class Console {
     private void handleRemoveClient() {
         try {
             System.out.print("Enter the client id to remove:");
-            Long id = scanner.nextLong();
+            Long id = Long.parseLong(scanner.nextLine());
             clientService.deleteClient(clientService.findOne(id).get());
 
             System.out.println("Client removed!");

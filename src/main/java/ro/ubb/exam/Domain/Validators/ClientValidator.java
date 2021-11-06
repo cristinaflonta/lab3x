@@ -10,11 +10,11 @@ public class ClientValidator extends Validator<Client> {
         String email = entity.getEmail();
 
 
-        if (name.isEmpty()){
+        if (name.isEmpty()) {
             throw new ValidatorException("Name is mandatory");
         }
 
-        if (email.isEmpty()){
+        if (email.isEmpty()) {
             throw new ValidatorException("Email is mandatory");
         }
     }
