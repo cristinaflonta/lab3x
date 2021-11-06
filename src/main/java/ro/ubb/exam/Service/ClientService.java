@@ -9,9 +9,9 @@ import java.util.Optional;
 public class ClientService {
     private Repository<Long, Client> clientRepository;          //definire tip Repo
 
-    public ClientService(Repository<Long, Client> repository) {
+    public ClientService(Repository<Long, Client> repository) {     //instantiere in constructor
         this.clientRepository = repository;
-    } //instantiere in constructor
+    }
 
     public void addClient(Client client) throws ValidatorException {
         clientRepository.save(client);
